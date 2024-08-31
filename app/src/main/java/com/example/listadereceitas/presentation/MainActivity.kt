@@ -7,6 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.listadereceitas.presentation.detail.SecondScreen
+import com.example.listadereceitas.presentation.recipe.FirstScreen
 import com.example.listadereceitas.routes.Routes
 
 class MainActivity : ComponentActivity() {

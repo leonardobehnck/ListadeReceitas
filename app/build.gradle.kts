@@ -1,6 +1,7 @@
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.jetbrains.kotlin.android)
+  id("androidx.room") version "2.6.1" apply false
 }
 
 android {
@@ -18,6 +19,7 @@ android {
     vectorDrawables {
       useSupportLibrary = true
     }
+
   }
 
   buildTypes {
@@ -47,6 +49,8 @@ android {
 }
 
 dependencies {
+  implementation(libs.room.runtime)
+  annotationProcessor(libs.androidx.room.compiler)
   implementation(libs.androidx.navigation.compose)
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.runtime.ktx)

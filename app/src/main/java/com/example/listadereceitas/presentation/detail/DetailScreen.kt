@@ -1,4 +1,4 @@
-package com.example.listadereceitas.presentation
+package com.example.listadereceitas.presentation.detail
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
