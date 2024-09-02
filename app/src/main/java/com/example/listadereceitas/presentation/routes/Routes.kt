@@ -1,4 +1,4 @@
-package com.example.listadereceitas.routes
+package com.example.listadereceitas.presentation.routes
 
 object Routes {
   var FirstScreen = "FirstScreen"
