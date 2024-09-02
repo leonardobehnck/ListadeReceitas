@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.navOptions
-import com.example.listadereceitas.routes.Routes
+import com.example.listadereceitas.presentation.routes.Routes
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
