@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-typealias RecipeEntity
+typealias RecipeEntity = Recipe
 
 @Entity
 data class Recipe(
