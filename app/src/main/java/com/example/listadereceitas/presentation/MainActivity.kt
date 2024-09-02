@@ -9,7 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.listadereceitas.presentation.detail.SecondScreen
 import com.example.listadereceitas.presentation.recipe.FirstScreen
-import com.example.listadereceitas.routes.Routes
+import com.example.listadereceitas.presentation.routes.Routes
 
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
