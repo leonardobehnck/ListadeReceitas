@@ -3,6 +3,7 @@ package com.example.listadereceitas.presentation.recipe
 import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -41,20 +42,27 @@ import com.example.listadereceitas.presentation.routes.Routes
 @Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 fun RecipeScreen(navController: NavController) {
-  //val viewModel: RecipeViewModel = viewModel()
   val viewModel: RecipeViewModel = viewModel(factory = RecipeViewModel.Factory())
   val context = LocalContext.current
+  var progressBarVisibility = false
+
   viewModel.state.observeForever { state ->
     when (state) {
       is RecipeState.Loading -> {
-        Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
+        //progressBarVisibility = true
       }
-
-      RecipeState.Empty -> {}
-      is RecipeState.Error -> {}
-      is RecipeState.Success -> {}
+      RecipeState.Empty -> {
+        Toast.makeText(context, "Ops, insira um titulo válido.", Toast.LENGTH_SHORT).show()
+      }
+      is RecipeState.Error -> {
+        progressBarVisibility = false
+      }
+      is RecipeState.Success -> {
+        progressBarVisibility = false
+      }
     }
   }
+
   Scaffold {
     Column {
       TopAppBar(
@@ -69,7 +77,8 @@ fun RecipeScreen(navController: NavController) {
           .weight(1.0f)
           .padding(16.dp)
       ) {
-        ProgressBar()
+
+        ProgressBar(visible = progressBarVisibility)
         LazyColumn {
           items(25) {
             RecipeCard()
@@ -125,12 +134,17 @@ fun FloatActionButton() {
 }
 
 @Composable
-fun ProgressBar() {
-  CircularProgressIndicator(
-    modifier = Modifier.width(32.dp),
-    color = MaterialTheme.colorScheme.secondary,
-    trackColor = MaterialTheme.colorScheme.surfaceVariant,
-  )
+fun ProgressBar(
+  visible: Boolean = false,
+) {
+
+  if (visible) {
+    CircularProgressIndicator(
+      modifier = Modifier.width(32.dp),
+      color = MaterialTheme.colorScheme.secondary,
+      trackColor = MaterialTheme.colorScheme.surfaceVariant,
+    )
+  }
 }
 
 
@@ -148,7 +162,7 @@ fun ButtonSecondActivity(navController: NavController) {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun Preview() {
   val navController = rememberNavController()
   RecipeScreen(navController)
 }
