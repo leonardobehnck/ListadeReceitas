@@ -1,16 +1,14 @@
 package com.example.listadereceitas.presentation.recipe
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.absoluteOffset
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
@@ -29,10 +27,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.listadereceitas.presentation.dialog.DialogScreen
@@ -42,7 +40,21 @@ import com.example.listadereceitas.presentation.routes.Routes
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-fun FirstScreen(navController: NavController) {
+fun RecipeScreen(navController: NavController) {
+  //val viewModel: RecipeViewModel = viewModel()
+  val viewModel: RecipeViewModel = viewModel(factory = RecipeViewModel.Factory())
+  val context = LocalContext.current
+  viewModel.state.observeForever { state ->
+    when (state) {
+      is RecipeState.Loading -> {
+        Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
+      }
+
+      RecipeState.Empty -> {}
+      is RecipeState.Error -> {}
+      is RecipeState.Success -> {}
+    }
+  }
   Scaffold {
     Column {
       TopAppBar(
@@ -138,7 +150,7 @@ fun ButtonSecondActivity(navController: NavController) {
 @Composable
 fun GreetingPreview() {
   val navController = rememberNavController()
-  FirstScreen(navController)
+  RecipeScreen(navController)
 }
 
 

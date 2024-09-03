@@ -1,6 +1,8 @@
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.jetbrains.kotlin.android)
+  id("kotlin-kapt")
+  id("com.google.devtools.ksp").version("1.9.23-1.0.19")
   id("androidx.room") version "2.6.1" apply false
 }
 
@@ -50,7 +52,8 @@ android {
 
 dependencies {
   implementation(libs.room.runtime)
-  annotationProcessor(libs.androidx.room.compiler)
+  implementation(libs.androidx.runtime.livedata)
+  kapt(libs.androidx.room.compiler)
   implementation(libs.androidx.navigation.compose)
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.runtime.ktx)

@@ -22,7 +22,7 @@ import com.example.listadereceitas.presentation.routes.Routes
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
   @OptIn(ExperimentalMaterial3Api::class)
   @Composable
-  fun SecondScreen(navController: NavController) {
+  fun DetailScreen(navController: NavController) {
     Scaffold {
       Column {
         TopAppBar(
