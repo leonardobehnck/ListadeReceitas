@@ -5,6 +5,7 @@ import com.example.listadereceitas.domain.model.RecipeDomain
 
 sealed interface RecipeState {
 
+
   object Loading: RecipeState
   object Empty: RecipeState
   data class Success(val recipes: List<RecipeDomain>): RecipeState

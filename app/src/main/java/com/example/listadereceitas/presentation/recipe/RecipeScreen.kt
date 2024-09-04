@@ -1,9 +1,9 @@
 package com.example.listadereceitas.presentation.recipe
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -31,9 +31,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.listadereceitas.domain.model.RecipeDomain
 import com.example.listadereceitas.presentation.dialog.DialogScreen
 import com.example.listadereceitas.presentation.routes.Routes
 
@@ -43,20 +45,26 @@ import com.example.listadereceitas.presentation.routes.Routes
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 fun RecipeScreen(navController: NavController) {
   val viewModel: RecipeViewModel = viewModel(factory = RecipeViewModel.Factory())
+  var listRecipes : List<String> = listOf("Pudim", "Nega Maluca", "Lasanha")
+
   val context = LocalContext.current
   var progressBarVisibility = false
+
 
   viewModel.state.observeForever { state ->
     when (state) {
       is RecipeState.Loading -> {
         //progressBarVisibility = true
       }
+
       RecipeState.Empty -> {
         Toast.makeText(context, "Ops, insira um titulo válido.", Toast.LENGTH_SHORT).show()
       }
+
       is RecipeState.Error -> {
         progressBarVisibility = false
       }
+
       is RecipeState.Success -> {
         progressBarVisibility = false
       }
@@ -80,8 +88,8 @@ fun RecipeScreen(navController: NavController) {
 
         ProgressBar(visible = progressBarVisibility)
         LazyColumn {
-          items(25) {
-            RecipeCard()
+          items(listRecipes.size) { item ->
+            RecipeCard(name = listRecipes[item])
           }
         }
         ButtonSecondActivity(navController)
@@ -100,7 +108,7 @@ fun RecipeScreen(navController: NavController) {
 }
 
 @Composable
-fun RecipeCard() {
+fun RecipeCard(name: String) {
   Card(
     Modifier
       .fillMaxWidth()
@@ -109,7 +117,7 @@ fun RecipeCard() {
   ) {
     Text(
       modifier = Modifier.padding(16.dp),
-      text = "Hello, world!",
+      text = name,
     )
   }
 }

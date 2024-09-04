@@ -17,9 +17,6 @@ import com.example.listadereceitas.presentation.routes.Routes
 
 class MainActivity : ComponentActivity() {
 
-//  private val viewModel: RecipeViewModel by viewModels {
-//    RecipeViewModel.Factory()
-//  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

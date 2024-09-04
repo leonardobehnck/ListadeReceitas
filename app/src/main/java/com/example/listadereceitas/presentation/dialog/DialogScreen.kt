@@ -11,13 +11,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.listadereceitas.domain.model.RecipeDomain
+import com.example.listadereceitas.presentation.recipe.RecipeViewModel
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun DialogScreen(showDialog: MutableState<Boolean>) {
-  var title by remember { mutableStateOf("")  }
+  val viewModel: RecipeViewModel = viewModel(factory = RecipeViewModel.Factory())
+  var title by remember { mutableStateOf("") }
+
+  var listRecipes : List<String> = listOf("Pudim", "Nega Maluca", "Lasanha")
+
   AlertDialog(
     title = {
       Text(text = "Adicione uma receita")
@@ -31,11 +39,15 @@ fun DialogScreen(showDialog: MutableState<Boolean>) {
     },
     onDismissRequest = {
       showDialog.value = false
-                       },
+    },
     confirmButton = {
       TextButton(
         onClick = {
           showDialog.value = false
+
+          //Insert in  DB, need to make the list in screen
+          viewModel.insert(title)
+
         }
       ) {
         Text("Confirm")

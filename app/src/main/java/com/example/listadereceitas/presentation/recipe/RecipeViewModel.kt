@@ -42,6 +42,7 @@ class RecipeViewModel(
     }
   }
 
+
   class Factory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(
       modelClass: Class<T>,
@@ -51,7 +52,7 @@ class RecipeViewModel(
       val repository = RecipeRepositoryImpl(app.db.recipeDao())
       return RecipeViewModel(
           getAllRecipesUseCase = GetAllRecipesUseCase(repository),
-          insertRecipeUseCase = InsertRecipeUseCase(repository)
+          insertRecipeUseCase = InsertRecipeUseCase(repository),
         ) as T
     }
   }

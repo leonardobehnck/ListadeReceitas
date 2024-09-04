@@ -16,4 +16,5 @@ class RecipeRepositoryImpl(private val dao: RecipeDao) : RecipeRepository {
   override suspend fun insert(recipe: RecipeDomain) = withContext(Dispatchers.IO) {
     dao.insert(recipe.toEntity())
   }
+
 }
